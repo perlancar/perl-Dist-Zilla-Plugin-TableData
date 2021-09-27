@@ -22,7 +22,6 @@ with (
 );
 
 sub munge_files {
-    no strict 'refs';
     my $self = shift;
 
     local @INC = ("lib", @INC);
@@ -40,7 +39,7 @@ sub munge_files {
       CREATE_STATS:
         {
             require $package_pm;
-            no strict 'refs';
+            no strict 'refs'; ## no critic: TestingAndDebugging::ProhibitNoStrict
             my $stats = \%{"$package\::STATS"};
             last if keys %$stats; # module creates its own stats, skip
             my $no_stats = ${"$package\::NO_STATS"};
